@@ -2,30 +2,32 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔮 タロット占い 🔮</title>
 <link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
 
 <body>
 
-<h1>🔮 タロット占い 🔮</h1>
+<header>
+  <h1>🔮 タロット占い 🔮</h1>
+</header>
 
-<button id="drawBtn">占う</button>
-
-<div id="result"></div>
+<main>
+  <button id="drawBtn" type="button">占う</button>
+  <div id="result"></div>
+</main>
 
 <!-- モーダル -->
 <div id="modal">
   <div id="modalContent">
-    <img id="modalImg">
+    <img id="modalImg" alt="タロットカード">
     <h2 id="modalName"></h2>
     <p id="modalText"></p>
-    <button id="closeBtn">閉じる</button>
+    <button id="closeBtn" type="button">閉じる</button>
   </div>
 </div>
-
-<script src="script.js"></script>
-
 
 </body>
 </html>
