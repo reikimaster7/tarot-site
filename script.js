@@ -67,8 +67,8 @@ function drawThree(){
         <img src="${card.img}" class="${isReversed?'reversed':''}">
         <p>${card.name}</p>
         <p>${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
-        <p>${text}</p>
-      `;*/
+        <p>${text}</p>*/
+      `;
 
 
  
