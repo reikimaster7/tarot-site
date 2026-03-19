@@ -17,10 +17,15 @@ body {
 /* カード */
 .card {
   width: 150px;
+  min-height: 260px; /* ← heightじゃなくこれ */
+}
+/*.card {
+  width: 150px;
   height: 300px; /* ← 少し余裕持たせる */
   display: flex;
   flex-direction: column;
-}
+}*/
+
 
 /* 名前 */
 .card .name {
