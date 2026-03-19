@@ -243,18 +243,70 @@ function drawThree(){
   setTimeout(()=>{
 
     const isReversed = Math.random() < 0.5;
+
     results.push({
-    card,
-    isReversed
+      card,
+      isReversed
     });
 
+    const text = isReversed ? card.rev : card.up;
+
+    const cardEl = document.createElement("div");
+    cardEl.className = "card";
+
+    const inner = document.createElement("div");
+    inner.className = "card-inner";
+
+    const back = document.createElement("div");
+    back.className = "card-back";
+    back.textContent = "🔮";
+
+    const front = document.createElement("div");
+    front.className = "card-front";
+
+    const title = document.createElement("h3");
+    title.textContent = positions[index];
+
+    const img = document.createElement("img");
+    img.src = card.img;
+    if(isReversed) img.classList.add("reversed");
+
+    const name = document.createElement("p");
+    name.className = "name";
+    name.textContent = card.name;
+
+    const pos = document.createElement("p");
+    pos.className = `pos ${isReversed ? 'rev' : 'up'}`;
+    pos.textContent = isReversed ? "🔻逆位置" : "🔺正位置";
+
+    const textEl = document.createElement("p");
+    textEl.className = "text";
+    textEl.textContent = text;
+
+    front.append(title, img, name, pos, textEl);
+
+    inner.append(back, front);
+    cardEl.appendChild(inner);
+    resultEl.appendChild(cardEl);
+
+    // 🎴 アニメ
+    const flipDelay = (index === 2) ? 800 : 400;
+
+    setTimeout(()=>{
+      cardEl.classList.add("flip");
+      flipSound.currentTime = 0;
+      flipSound.play();
+    }, flipDelay);
+
+    // モーダル
+    cardEl.addEventListener("click", ()=>{
+      openModal(card, isReversed);
+    });
+
+  }, index * 800);
+});
 
 
-
-    
-   });
-
-  
 
 
     const text = isReversed ? card.rev : card.up;
