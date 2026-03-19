@@ -38,10 +38,15 @@ body {
   transform: rotate(180deg);
 }
 
+/*.card p:last-child {
+/*  height: 60px;
+/*  overflow-y: auto;
+/*  font-size: 12px;*/
+
 .card p:last-child {
-  height: 60px;
+  flex: 1;
   overflow-y: auto;
-  font-size: 12px;
+
 }
 
 /* モーダル */
