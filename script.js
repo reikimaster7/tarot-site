@@ -10,6 +10,14 @@ const modalName = document.getElementById("modalName");
 const modalText = document.getElementById("modalText");
 const closeBtn = document.getElementById("closeBtn");
 
+const questionInput = document.getElementById("questionInput");
+
+const question = questionInput.value;
+
+summaryEl.textContent = generateSummary(results, question);
+
+
+
 // ===== カードデータ =====
 const cards = [
 {
@@ -158,6 +166,60 @@ function shuffle(array){
   }
   return arr;
 }
+
+
+
+function detectCategory(text){
+  if(!text) return "general";
+
+  if(text.includes("恋") || text.includes("好き") || text.includes("結婚")){
+    return "love";
+  }
+
+  if(text.includes("仕事") || text.includes("転職") || text.includes("お金")){
+    return "work";
+  }
+
+  return "general";
+}
+
+
+if(!question){
+  summaryEl.textContent = "質問を入力すると、より具体的な占い結果になります 🔮";
+}
+
+
+
+function generateSummary(results, question){
+
+  const category = detectCategory(question);
+
+  const texts = results.map(r => 
+    r.isReversed ? r.card.rev : r.card.up
+  );
+
+  let base = `
+過去：${texts[0]}
+
+現在：${texts[1]}
+
+未来：${texts[2]}
+`;
+
+  if(category === "love"){
+    base += "\n💖 恋愛においては、素直な気持ちとタイミングが鍵になります。";
+  }
+  else if(category === "work"){
+    base += "\n💼 仕事面では、冷静な判断と行動力が成功を引き寄せます。";
+  }
+  else{
+    base += "\n🔮 今は流れを受け入れつつ、自分の意思で選択することが重要です。";
+  }
+
+  return base;
+}
+
+
 
 // ===== 占い =====
 let isDrawing = false;
