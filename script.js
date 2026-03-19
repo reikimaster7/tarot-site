@@ -176,7 +176,8 @@ const text = isReversed
   : meanings[card.name] || "（正位置 未登録）";
 
 
-
+document.getElementById("drawBtn").addEventListener("click", drawThree);
+document.getElementById("closeBtn").addEventListener("click", closeModal);
 
 
 function closeModal(){
