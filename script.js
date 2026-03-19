@@ -146,6 +146,8 @@ rev:"あと一歩で完成です。最後まで努力を続けることが成功
 }
 ];
 
+
+
 // ===== 正しいシャッフル =====
 function shuffle(array){
   const arr = [...array];
@@ -157,8 +159,15 @@ function shuffle(array){
 }
 
 // ===== 占い =====
+let isDrawing = false;
+
 function drawThree(){
-  drawBtn.disabled = true;
+  if(isDrawing) return;
+  isDrawing = true;
+
+  shuffleSound.currentTime = 0;
+  shuffleSound.play();
+
   resultEl.innerHTML = "🔮 シャッフル中...";
 
   setTimeout(()=>{
@@ -173,10 +182,19 @@ function drawThree(){
         const isReversed = Math.random() < 0.5;
         const text = isReversed ? card.rev : card.up;
 
-        const div = document.createElement("div");
-        div.className = "card";
+        const cardEl = document.createElement("div");
+        cardEl.className = "card";
 
-        // 要素生成
+        const inner = document.createElement("div");
+        inner.className = "card-inner";
+
+        const back = document.createElement("div");
+        back.className = "card-back";
+        back.textContent = "🔮";
+
+        const front = document.createElement("div");
+        front.className = "card-front";
+
         const title = document.createElement("h3");
         title.textContent = positions[index];
 
@@ -196,18 +214,31 @@ function drawThree(){
         textEl.className = "text";
         textEl.textContent = text;
 
-        div.append(title, img, name, pos, textEl);
+        front.append(title, img, name, pos, textEl);
 
-        div.addEventListener("click", ()=>{
+        inner.append(back, front);
+        cardEl.appendChild(inner);
+        resultEl.appendChild(cardEl);
+
+        // 🎴 めくる＋音
+        setTimeout(()=>{
+          cardEl.classList.add("flip");
+          flipSound.currentTime = 0;
+          flipSound.play();
+        }, 200);
+
+        // モーダル
+        cardEl.addEventListener("click", ()=>{
           openModal(card, isReversed);
         });
 
-        resultEl.appendChild(div);
-
-      }, index * 400); // 演出
+      }, index * 600);
     });
 
-    drawBtn.disabled = false;
+    // ロック解除
+    setTimeout(()=>{
+      isDrawing = false;
+    }, 2500);
 
   },1000);
 }
