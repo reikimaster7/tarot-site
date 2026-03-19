@@ -1,4 +1,3 @@
-// デバッグ
 console.log("JS読み込みOK");
 
 // カード
@@ -48,11 +47,11 @@ function drawThree(){
       const text = isReversed ? card.rev : card.up;
 
       const div = document.createElement("div");
-      div.className = "card";
+      div.className="card";
 
       div.innerHTML = `
         <h3>${positions[index]}</h3>
-        <img src="${card.img}" class="${isReversed ? "reversed" : ""}">
+        <img src="${card.img}" class="${isReversed ? 'reversed' : ''}">
         <p class="name">${card.name}</p>
         <p class="pos">${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
         <p class="text">${text}</p>
@@ -60,7 +59,6 @@ function drawThree(){
 
       result.appendChild(div);
 
-      // モーダル表示
       div.onclick = ()=>{
         openModal(card, isReversed);
       };
@@ -71,16 +69,15 @@ function drawThree(){
 
 // モーダル
 function openModal(card, isReversed){
-  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modal").style.display="flex";
   document.getElementById("modalImg").src = card.img;
   document.getElementById("modalName").textContent = card.name;
   document.getElementById("modalText").textContent =
     isReversed ? card.rev : card.up;
 }
 
-// 閉じる
 function closeModal(){
-  document.getElementById("modal").style.display = "none";
+  document.getElementById("modal").style.display="none";
 }
 
 // ボタン
