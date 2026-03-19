@@ -79,15 +79,20 @@ function drawThree(){
 }
 
 // モーダル
+
 function openModal(card, isReversed){
   document.getElementById("modal").style.display="flex";
-  document.getElementById("modalImg").src=card.img;
-  document.getElementById("modalName").textContent=card.name;
+  document.getElementById("modalImg").src = card.img;
+  document.getElementById("modalName").textContent = card.name;
+
+  // 👇 ここ修正
   document.getElementById("modalText").textContent =
     isReversed
-      ? reversedMeanings[card.name]
-      : meanings[card.name];
+      ? card.rev
+      : card.up;
 }
+
+
 
 function closeModal(){
   document.getElementById("modal").style.display="none";
