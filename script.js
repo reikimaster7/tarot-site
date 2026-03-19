@@ -55,13 +55,24 @@ function drawThree(){
       div.className="card";
 
       div.innerHTML = `
+      <h3>${positions[index]}</h3>
+      <img src="${card.img}" class="${isReversed?'reversed':''}">
+      <p class="name">${card.name}</p>
+      <p class="pos">${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
+      <p class="text">${text}</p>
+`;
+
+      /*div.innerHTML = `
         <h3>${positions[index]}</h3>
         <img src="${card.img}" class="${isReversed?'reversed':''}">
         <p>${card.name}</p>
         <p>${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
         <p>${text}</p>
-      `;
+      `;*/
 
+
+ 
+`;
       result.appendChild(div);
 
       // モーダル

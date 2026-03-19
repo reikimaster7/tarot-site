@@ -17,6 +17,29 @@ body {
 /* カード */
 .card {
   width: 150px;
+  height: 300px; /* ← 少し余裕持たせる */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 名前 */
+.card .name {
+  font-size: 14px;
+}
+
+/* 正逆 */
+.card .pos {
+  font-size: 12px;
+}
+
+/* ← ここが本命 */
+.card .text {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 12px;
+}
+/*.card {
+  width: 150px;
   height: 260px;
   background: rgba(255,255,255,0.05);
   border-radius: 10px;
@@ -25,7 +48,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
+}*/
 
 .card img {
   width: 100px;
