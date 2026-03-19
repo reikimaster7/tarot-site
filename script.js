@@ -244,6 +244,28 @@ ${texts[2]}
 // ===== 占い =====
 let isDrawing = false;
 function drawThree(){
+
+//  
+async function getFinalReading(results){
+
+  const res = await fetch("http://localhost:3000/api/tarot", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      cards: results.map((r, i)=>({
+        name: r.card.name,
+        position: i === 0 ? "過去" : i === 1 ? "現在" : "未来",
+        isReversed: r.isReversed
+      }))
+    })
+  });
+
+  const data = await res.json();
+  return data.message;
+}
+
   if(isDrawing) return;
   isDrawing = true;
 
@@ -328,9 +350,47 @@ function drawThree(){
     });
 
     // ⭐ 総合メッセージ
-setTimeout(()=>{
+setTimeout(async ()=>{
 
   const summaryDiv = document.createElement("div");
+  summaryDiv.className = "summary";
+
+  summaryDiv.innerHTML = `<h2>🔮 総合リーディング</h2>`;
+
+  // 既存カードごとの説明（そのまま）
+  results.forEach((r, index)=>{
+    const card = r.card;
+    const isReversed = r.isReversed;
+
+    let message = isReversed
+    ? "流れが不安定で見直しのタイミングです。"
+    : "良い流れに乗って進めるタイミングです。";
+
+    summaryDiv.innerHTML += `
+      <div class="summary-card">
+        <h3>${card.name}（${index === 0 ? "過去" : index === 1 ? "現在" : "未来"}）</h3>
+        <p>${message}</p>
+      </div>
+    `;
+  });
+
+  // ⭐ AI呼び出し
+  summaryDiv.innerHTML += `<p>✨ AIが読み解いています...</p>`;
+
+  resultEl.appendChild(summaryDiv);
+
+  const aiMessage = await getFinalReading(results);
+
+  // ⭐ AI結果表示
+  summaryDiv.innerHTML += `
+    <div class="final-ai">
+      <h3>✨ 最終リーディング</h3>
+      <p>${aiMessage}</p>
+    </div>
+  `;
+
+}, 2500);
+
   summaryDiv.className = "summary";
 
   summaryDiv.innerHTML = `<h2>🔮 総合リーディング</h2>`;
