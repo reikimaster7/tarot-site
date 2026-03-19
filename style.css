@@ -12,6 +12,19 @@ h1 {
   text-shadow: 0 0 10px #b983ff, 0 0 20px #6b00ff;
 }
 
+#questionArea {
+  margin-bottom: 15px;
+}
+
+#questionInput {
+  width: 250px;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+
 /* ボタン */
 #drawBtn {
   background: linear-gradient(45deg, #6b00ff, #b983ff);
