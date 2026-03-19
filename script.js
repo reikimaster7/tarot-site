@@ -242,14 +242,7 @@ ${texts[2]}
 async function getFinalReading(results){
 
 
-// ===== 占い =====
-let isDrawing = false;
-function drawThree(){
-
-//  
-
-
-  const res = await fetch("http://localhost:3000/api/tarot", {
+    const res = await fetch("http://localhost:3000/api/tarot", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -265,6 +258,15 @@ function drawThree(){
 
   const data = await res.json();
   return data.message;
+
+// ===== 占い =====
+let isDrawing = false;
+function drawThree(){
+
+//  
+
+
+
 }
 
   if(isDrawing) return;
