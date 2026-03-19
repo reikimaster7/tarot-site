@@ -225,7 +225,15 @@ function drawThree(){
         <h3>${positions[index]}</h3>
         <img src="${card.img}" class="${isReversed?'reversed':''}">
         <p>${card.name}</p>
-        <p>${text}</p>
+        <p>
+${isReversed ? "🔻逆位置" : "🔺正位置"}<br>
+${text}
+</p>
+console.log(card.name, isReversed);
+
+<p style="color:${isReversed ? '#ff6b6b' : '#6bffb3'}">
+${isReversed ? "逆位置" : "正位置"}
+</p>
       `;
 
       result.appendChild(div);
