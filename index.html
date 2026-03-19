@@ -183,7 +183,24 @@ function drawThree(){
     });
   });
 }
+
+
+function generateReading(cards){
+  return `
+あなたは今、大きな流れの中にいます。
+
+過去の「${cards[0].name}」は、これまでの経験が今のあなたに影響していることを示しています。
+現在の「${cards[1].name}」は、まさに今の状況を表しています。
+未来の「${cards[2].name}」は、この先の展開を暗示しています。
+
+焦らず、自分の直感を信じることで道が開けていくでしょう。
+`;
+}
+
+
 </script>
+
+
 
 </body>
 </html>
