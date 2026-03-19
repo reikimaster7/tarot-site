@@ -505,7 +505,7 @@ summaryDiv.innerHTML += `
     }, 3000);
 
   }, 1000);
-}
+
 
 // ===== モーダル =====
 function openModal(card, isReversed){
