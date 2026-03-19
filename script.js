@@ -12,9 +12,9 @@ const closeBtn = document.getElementById("closeBtn");
 
 const questionInput = document.getElementById("questionInput");
 
-const question = questionInput.value;
+const summaryEl = document.getElementById("summary");
 
-summaryEl.textContent = generateSummary(results, question);
+
 
 
 
@@ -184,9 +184,7 @@ function detectCategory(text){
 }
 
 
-if(!question){
-  summaryEl.textContent = "質問を入力すると、より具体的な占い結果になります 🔮";
-}
+
 
 
 
@@ -225,6 +223,7 @@ function generateSummary(results, question){
 let isDrawing = false;
 
 function drawThree(){
+  const results = [];
   if(isDrawing) return;
   isDrawing = true;
 
@@ -244,6 +243,15 @@ function drawThree(){
   setTimeout(()=>{
 
     const isReversed = Math.random() < 0.5;
+    results.push({
+    card,
+    isReversed
+   });
+
+   const question = questionInput.value;
+   summaryEl.textContent = generateSummary(results, question);
+
+
     const text = isReversed ? card.rev : card.up;
 
     const cardEl = document.createElement("div");
