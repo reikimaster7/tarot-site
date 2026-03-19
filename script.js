@@ -1,8 +1,4 @@
-function hello(){
-  alert("成功！");
-}
-
-// カード
+// カードデータ
 const cards = [
 {name:"愚者", img:"images/major_01_fool.png", up:"新しい始まりの時です。", rev:"軽率に注意。"},
 {name:"魔術師", img:"images/major_02_magician.png", up:"チャンスを掴めます。", rev:"迷いあり。"},
@@ -47,15 +43,7 @@ function drawThree(){
     draw.forEach((card,index)=>{
       const isReversed = Math.random() < 0.5;
 
-  //    const text = isReversed
-  //      ? reversedMeanings[card.name]
-  //      : meanings[card.name];
-
-
-      
-      const text = isReversed
-       ? card.rev
-       : card.up;
+      const text = isReversed ? card.rev : card.up;
 
       const div = document.createElement("div");
       div.className="card";
@@ -79,26 +67,19 @@ function drawThree(){
 }
 
 // モーダル
-
 function openModal(card, isReversed){
   document.getElementById("modal").style.display="flex";
   document.getElementById("modalImg").src = card.img;
   document.getElementById("modalName").textContent = card.name;
-
-  // 👇 ここ修正
   document.getElementById("modalText").textContent =
-    isReversed
-      ? card.rev
-      : card.up;
+    isReversed ? card.rev : card.up;
 }
-
-
 
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
 
-// ボタン動作（これ超重要）
+// イベント登録
 window.onload = () => {
   document.getElementById("drawBtn").addEventListener("click", drawThree);
   document.getElementById("closeBtn").addEventListener("click", closeModal);
