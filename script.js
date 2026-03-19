@@ -246,28 +246,15 @@ function drawThree(){
     results.push({
     card,
     isReversed
+    });
 
-// ===== 総合メッセージ =====
-const question = questionInput.value;
-const summaryText = generateSummary(results, question);
-
-const summaryDiv = document.createElement("div");
-summaryDiv.className = "summary";
-
-summaryDiv.innerHTML = `
-  <h2>🔮 総合メッセージ</h2>
-  <p>${summaryText}</p>
-`;
-
-resultEl.appendChild(summaryDiv);
 
 
 
     
    });
 
-   const question = questionInput.value;
-   summaryEl.textContent = generateSummary(results, question);
+  
 
 
     const text = isReversed ? card.rev : card.up;
@@ -341,6 +328,24 @@ resultEl.appendChild(summaryDiv);
 
   }, index * 800); // ← 少しゆっくり
 });
+
+// 3枚出し終わったあと
+setTimeout(()=>{
+
+  const question = questionInput.value;
+  const summaryText = generateSummary(results, question);
+
+  const summaryDiv = document.createElement("div");
+  summaryDiv.className = "summary";
+
+  summaryDiv.innerHTML = `
+    <h2>🔮 総合メッセージ</h2>
+    <p>${summaryText}</p>
+  `;
+
+  resultEl.appendChild(summaryDiv);
+
+}, 2000); // ← カード表示後
     
    
     // ロック解除
