@@ -248,15 +248,15 @@ function drawThree(){
     isReversed
 
 // ===== 総合メッセージ =====
-　　　　const question = questionInput.value;
-　　　　const summaryText = generateSummary(results, question);
+const question = questionInput.value;
+const summaryText = generateSummary(results, question);
 
-　　　　const summaryDiv = document.createElement("div");
-　　　　summaryDiv.className = "summary";
+const summaryDiv = document.createElement("div");
+summaryDiv.className = "summary";
 
-　　　　summaryDiv.innerHTML = `
-　　　  <h2>🔮 総合メッセージ</h2>
-　　　　  <p>${summaryText}</p>
+summaryDiv.innerHTML = `
+  <h2>🔮 総合メッセージ</h2>
+  <p>${summaryText}</p>
 `;
 
 resultEl.appendChild(summaryDiv);
