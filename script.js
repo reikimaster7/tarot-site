@@ -15,9 +15,9 @@ const cards = [
 {name:"戦車", img:"images/major_08_chariot.png"},
 {name:"力", img:"images/major_09_strength.png"},
 {name:"隠者", img:"images/major_10_hermit.png"},
-{name:"運命の輪", img:"images/major_11_wheel.png"},
+{name:"運命の輪", img:"images/major_11_wheel_of_fortune.png"},
 {name:"正義", img:"images/major_12_justice.png"},
-{name:"吊るされた男", img:"images/major_13_hanged.png"},
+{name:"吊るされた男", img:"images/major_13_hanged_man.png"},
 {name:"死神", img:"images/major_14_death.png"},
 {name:"節制", img:"images/major_15_temperance.png"},
 {name:"悪魔", img:"images/major_16_devil.png"},
@@ -149,6 +149,12 @@ function drawThree(){
 
   },1000);
 }
+
+
+img.onerror = () => {
+  img.src = "images/noimage.png";
+};
+
 
 // モーダル
 function openModal(card, isReversed){

@@ -29,6 +29,12 @@ button {
   align-items: flex-start; /* ← これ重要 */
 }
 
+
+.card {
+  width: 150px;
+  height: 260px; /* 固定 */
+}
+
 .card img {
   width: 100px;
   border-radius: 5px;
@@ -44,6 +50,7 @@ button {
 /* カード */
 /* カード全体を固定サイズに */
 .card {
+
   width: 150px;
   height: 260px; /* ← ここ重要：高さ固定 */
   background: rgba(255,255,255,0.05);
