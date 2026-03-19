@@ -4,81 +4,29 @@ function hello(){
 
 // カード
 const cards = [
-{name:"愚者", img:"images/major_01_fool.png"},
-{name:"魔術師", img:"images/major_02_magician.png"},
-{name:"女教皇", img:"images/major_03_high_priestess.png"},
-{name:"女帝", img:"images/major_04_empress.png"},
-{name:"皇帝", img:"images/major_05_emperor.png"},
-{name:"教皇", img:"images/major_06_hierophant.png"},
-{name:"恋人", img:"images/major_07_lovers.png"},
-{name:"戦車", img:"images/major_08_chariot.png"},
-{name:"力", img:"images/major_09_strength.png"},
-{name:"隠者", img:"images/major_10_hermit.png"},
-{name:"運命の輪", img:"images/major_11_wheel_of_fortune.png"},
-{name:"正義", img:"images/major_12_justice.png"},
-{name:"吊るされた男", img:"images/major_13_hanged_man.png"},
-{name:"死神", img:"images/major_14_death.png"},
-{name:"節制", img:"images/major_15_temperance.png"},
-{name:"悪魔", img:"images/major_16_devil.png"},
-{name:"塔", img:"images/major_17_tower.png"},
-{name:"星", img:"images/major_18_star.png"},
-{name:"月", img:"images/major_19_moon.png"},
-{name:"太陽", img:"images/major_20_sun.png"},
-{name:"審判", img:"images/major_21_judgement.png"},
-{name:"世界", img:"images/major_22_world.png"}
+{name:"愚者", img:"images/major_01_fool.png", up:"新しい始まりの時です。", rev:"軽率に注意。"},
+{name:"魔術師", img:"images/major_02_magician.png", up:"チャンスを掴めます。", rev:"迷いあり。"},
+{name:"女教皇", img:"images/major_03_high_priestess.png", up:"直感を信じて。", rev:"混乱状態。"},
+{name:"女帝", img:"images/major_04_empress.png", up:"豊かさの時期。", rev:"依存注意。"},
+{name:"皇帝", img:"images/major_05_emperor.png", up:"安定と成功。", rev:"支配的。"},
+{name:"教皇", img:"images/major_06_hierophant.png", up:"助言が鍵。", rev:"縛られている。"},
+{name:"恋人", img:"images/major_07_lovers.png", up:"選択の時。", rev:"すれ違い。"},
+{name:"戦車", img:"images/major_08_chariot.png", up:"勝利へ進む。", rev:"暴走。"},
+{name:"力", img:"images/major_09_strength.png", up:"忍耐が必要。", rev:"不安。"},
+{name:"隠者", img:"images/major_10_hermit.png", up:"内省の時。", rev:"孤独。"},
+{name:"運命の輪", img:"images/major_11_wheel_of_fortune.png", up:"転機到来。", rev:"停滞。"},
+{name:"正義", img:"images/major_12_justice.png", up:"公平が重要。", rev:"不公平。"},
+{name:"吊るされた男", img:"images/major_13_hanged_man.png", up:"耐える時。", rev:"無駄。"},
+{name:"死神", img:"images/major_14_death.png", up:"再生の始まり。", rev:"変化拒否。"},
+{name:"節制", img:"images/major_15_temperance.png", up:"バランス大事。", rev:"乱れ。"},
+{name:"悪魔", img:"images/major_16_devil.png", up:"執着注意。", rev:"依存。"},
+{name:"塔", img:"images/major_17_tower.png", up:"変化あり。", rev:"回避。"},
+{name:"星", img:"images/major_18_star.png", up:"希望あり。", rev:"失望。"},
+{name:"月", img:"images/major_19_moon.png", up:"不安注意。", rev:"明確になる。"},
+{name:"太陽", img:"images/major_20_sun.png", up:"成功。", rev:"遅れ。"},
+{name:"審判", img:"images/major_21_judgement.png", up:"復活。", rev:"迷い。"},
+{name:"世界", img:"images/major_22_world.png", up:"完成。", rev:"未完成。"}
 ];
-
-// 正位置
-const meanings = {
-"愚者":"新しい始まりの時です。",
-"魔術師":"チャンスを掴めます。",
-"女教皇":"直感を信じて。",
-"女帝":"豊かさの時期。",
-"皇帝":"安定と成功。",
-"教皇":"助言が鍵。",
-"恋人":"選択の時。",
-"戦車":"勝利へ進む。",
-"力":"忍耐が必要。",
-"隠者":"内省の時。",
-"運命の輪":"転機到来。",
-"正義":"公平が重要。",
-"吊るされた男":"耐える時。",
-"死神":"再生の始まり。",
-"節制":"バランス大事。",
-"悪魔":"執着注意。",
-"塔":"変化あり。",
-"星":"希望あり。",
-"月":"不安注意。",
-"太陽":"成功。",
-"審判":"復活。",
-"世界":"完成。"
-};
-
-// 逆位置
-const reversedMeanings = {
-"愚者":"軽率に注意。",
-"魔術師":"迷いあり。",
-"女教皇":"混乱状態。",
-"女帝":"依存注意。",
-"皇帝":"支配的。",
-"教皇":"縛られている。",
-"恋人":"すれ違い。",
-"戦車":"暴走。",
-"力":"不安。",
-"隠者":"孤独。",
-"運命の輪":"停滞。",
-"正義":"不公平。",
-"吊るされた男":"無駄。",
-"死神":"変化拒否。",
-"節制":"乱れ。",
-"悪魔":"依存。",
-"塔":"回避。",
-"星":"失望。",
-"月":"明確になる。",
-"太陽":"遅れ。",
-"審判":"迷い。",
-"世界":"未完成。"
-};
 
 // シャッフル
 function shuffle(arr){
@@ -99,9 +47,14 @@ function drawThree(){
     draw.forEach((card,index)=>{
       const isReversed = Math.random() < 0.5;
 
+  //    const text = isReversed
+  //      ? reversedMeanings[card.name]
+  //      : meanings[card.name];
+
+
       const text = isReversed
-        ? reversedMeanings[card.name]
-        : meanings[card.name];
+  ? card.rev
+  : card.up;
 
       const div = document.createElement("div");
       div.className="card";
