@@ -370,6 +370,71 @@ setTimeout(()=>{
     `;
   });
 
+  // ⭐ 最終メッセージ生成
+function generateFinalMessage(results, question){
+
+  const [past, present, future] = results;
+
+  const pastText = past.isReversed ? past.card.rev : past.card.up;
+  const presentText = present.isReversed ? present.card.rev : present.card.up;
+  const futureText = future.isReversed ? future.card.rev : future.card.up;
+
+  let message = `
+🔮 最終リーディング
+
+あなたの状況は、過去から現在へと流れる中で確実に変化しています。
+
+過去には、
+「${pastText}」
+という流れがありました。
+
+そして現在、
+「${presentText}」
+という状況にあります。
+
+この流れを受けて、未来は
+「${futureText}」
+へと進んでいくでしょう。
+
+`;
+
+  // 🔥 深い解釈（ここがプロ感）
+  if(present.isReversed){
+    message += `
+今はまだ不安定な要素が残っていますが、それは悪い兆しではなく、
+「軌道修正のチャンス」です。
+
+焦らず、自分の本音と向き合うことで、
+未来はより良い方向へ変わっていきます。
+`;
+  } else {
+    message += `
+現在の流れは非常に良好です。
+
+このまま自分の直感と選択を信じて進むことで、
+未来は自然と良い方向へ開かれていくでしょう。
+`;
+  }
+
+  // 🎯 最後の一言（占い師っぽい締め）
+  message += `
+大切なのは、「流れに気づき、それをどう活かすか」です。
+
+あなたの選択が、この未来をより強く引き寄せていきます。
+`;
+
+  return message;
+}
+
+const finalMessage = generateFinalMessage(results, questionInput.value);
+
+summaryDiv.innerHTML += `
+  <div class="final-message">
+    <h2>✨ 最終メッセージ</h2>
+    <p>${finalMessage}</p>
+  </div>
+`;
+
   resultEl.appendChild(summaryDiv);
 
 }, 2500);
