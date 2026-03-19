@@ -240,9 +240,7 @@ ${texts[2]}
 }
 
 async function getFinalReading(results){
-
-
-    const res = await fetch("http://localhost:3000/api/tarot", {
+  const res = await fetch("http://localhost:3000/api/tarot", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -258,17 +256,12 @@ async function getFinalReading(results){
 
   const data = await res.json();
   return data.message;
+}
 
 // ===== 占い =====
 let isDrawing = false;
+
 function drawThree(){
-
-//  
-
-
-
-}
-
   if(isDrawing) return;
   isDrawing = true;
 
@@ -290,119 +283,74 @@ function drawThree(){
 
         const isReversed = Math.random() < 0.5;
 
-        results.push({
-          card,
-          isReversed
-        });
+        results.push({ card, isReversed });
 
         const text = isReversed ? card.rev : card.up;
 
         const cardEl = document.createElement("div");
         cardEl.className = "card";
 
-        const inner = document.createElement("div");
-        inner.className = "card-inner";
+        cardEl.innerHTML = `
+          <div class="card-inner">
+            <div class="card-back">🔮</div>
+            <div class="card-front">
+              <h3>${positions[index]}</h3>
+              <img src="${card.img}" class="${isReversed ? "reversed" : ""}">
+              <p class="name">${card.name}</p>
+              <p class="pos">${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
+              <p class="text">${text}</p>
+            </div>
+          </div>
+        `;
 
-        const back = document.createElement("div");
-        back.className = "card-back";
-        back.textContent = "🔮";
-
-        const front = document.createElement("div");
-        front.className = "card-front";
-
-        const title = document.createElement("h3");
-        title.textContent = positions[index];
-
-        const img = document.createElement("img");
-        img.src = card.img;
-        if(isReversed) img.classList.add("reversed");
-
-        const name = document.createElement("p");
-        name.className = "name";
-        name.textContent = card.name;
-
-        const pos = document.createElement("p");
-        pos.className = `pos ${isReversed ? 'rev' : 'up'}`;
-        pos.textContent = isReversed ? "🔻逆位置" : "🔺正位置";
-
-        const textEl = document.createElement("p");
-        textEl.className = "text";
-        textEl.textContent = text;
-
-        front.append(title, img, name, pos, textEl);
-
-        inner.append(back, front);
-        cardEl.appendChild(inner);
         resultEl.appendChild(cardEl);
-
-        // アニメ
-        const flipDelay = (index === 2) ? 800 : 400;
 
         setTimeout(()=>{
           cardEl.classList.add("flip");
           flipSound.currentTime = 0;
           flipSound.play();
-        }, flipDelay);
-
-        // モーダル
-        cardEl.addEventListener("click", ()=>{
-          openModal(card, isReversed);
-        });
+        }, 400);
 
       }, index * 800);
     });
 
-    // ⭐ 総合メッセージ
-// ⭐ 総合メッセージ（これ1個だけ残す）
-setTimeout(async ()=>{
+    // ⭐ 総合メッセージ（これ1個だけ）
+    setTimeout(async ()=>{
 
-  const summaryDiv = document.createElement("div");
-  summaryDiv.className = "summary";
+      const summaryDiv = document.createElement("div");
+      summaryDiv.className = "summary";
+      summaryDiv.innerHTML = `<h2>🔮 総合リーディング</h2>`;
 
-  summaryDiv.innerHTML = `<h2>🔮 総合リーディング</h2>`;
+      // カードごと
+      results.forEach((r, index)=>{
+        summaryDiv.innerHTML += `
+          <div class="summary-card">
+            <h3>${r.card.name}（${positions[index]}）</h3>
+            <p>${r.isReversed ? "見直しのタイミングです" : "良い流れにあります"}</p>
+          </div>
+        `;
+      });
 
-  // ===== カードごとの説明 =====
-  results.forEach((r, index)=>{
-    const card = r.card;
-    const isReversed = r.isReversed;
+      // AI前表示
+      summaryDiv.innerHTML += `<p>✨ AIが読み解いています...</p>`;
+      resultEl.appendChild(summaryDiv);
 
-    let message = isReversed
-      ? "流れが不安定で見直しのタイミングです。"
-      : "良い流れに乗って進めるタイミングです。";
+      // AI
+      const aiMessage = await getFinalReading(results);
 
-    summaryDiv.innerHTML += `
-      <div class="summary-card">
-        <h3>${card.name}（${index === 0 ? "過去" : index === 1 ? "現在" : "未来"}）</h3>
-        <p>${message}</p>
-      </div>
-    `;
-  });
+      summaryDiv.innerHTML += `
+        <div class="final-ai">
+          <h3>✨ 最終リーディング</h3>
+          <p>${aiMessage}</p>
+        </div>
+      `;
 
-  // ===== AI呼び出し =====
-  summaryDiv.innerHTML += `<p>✨ AIが読み解いています...</p>`;
-  resultEl.appendChild(summaryDiv);
+      isDrawing = false;
 
-  const aiMessage = await getFinalReading(results);
+    }, 2500);
 
-  summaryDiv.innerHTML += `
-    <div class="final-ai">
-      <h3>✨ 最終リーディング</h3>
-      <p>${aiMessage}</p>
-    </div>
-  `;
-
-  // ===== ローカル最終メッセージ =====
-  const finalMessage = generateFinalMessage(results, questionInput.value);
-
-  summaryDiv.innerHTML += `
-    <div class="final-message">
-      <h2>✨ 最終メッセージ</h2>
-      <p>${finalMessage}</p>
-    </div>
-  `;
-
-}, 2500);
-
+  }, 1000);
+}
   // ⭐ AI呼び出し
   summaryDiv.innerHTML += `<p>✨ AIが読み解いています...</p>`;
 
