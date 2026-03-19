@@ -171,6 +171,12 @@ function openModal(card, isReversed){
 console.log(card.name);
 console.log(meanings[card.name]);
 
+const text = isReversed
+  ? reversedMeanings[card.name] || "（逆位置 未登録）"
+  : meanings[card.name] || "（正位置 未登録）";
+
+
+
 
 
 function closeModal(){
