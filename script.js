@@ -366,7 +366,8 @@ function drawThree(){
     </div>
   `;
 
-}, 2500);
+ 2500;
+
 
   summaryDiv.className = "summary";
 
