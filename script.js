@@ -168,6 +168,11 @@ function openModal(card, isReversed){
       : meanings[card.name];
 }
 
+console.log(card.name);
+console.log(meanings[card.name]);
+
+
+
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
