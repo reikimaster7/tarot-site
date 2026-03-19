@@ -239,6 +239,7 @@ ${texts[2]}
   return base + advice;
 }
 
+async function getFinalReading(results){
 
 
 // ===== 占い =====
@@ -246,7 +247,7 @@ let isDrawing = false;
 function drawThree(){
 
 //  
-async function getFinalReading(results){
+
 
   const res = await fetch("http://localhost:3000/api/tarot", {
     method: "POST",
@@ -350,6 +351,7 @@ async function getFinalReading(results){
     });
 
     // ⭐ 総合メッセージ
+// ⭐ 総合メッセージ（これ1個だけ残す）
 setTimeout(async ()=>{
 
   const summaryDiv = document.createElement("div");
@@ -357,14 +359,14 @@ setTimeout(async ()=>{
 
   summaryDiv.innerHTML = `<h2>🔮 総合リーディング</h2>`;
 
-  // 既存カードごとの説明（そのまま）
+  // ===== カードごとの説明 =====
   results.forEach((r, index)=>{
     const card = r.card;
     const isReversed = r.isReversed;
 
     let message = isReversed
-    ? "流れが不安定で見直しのタイミングです。"
-    : "良い流れに乗って進めるタイミングです。";
+      ? "流れが不安定で見直しのタイミングです。"
+      : "良い流れに乗って進めるタイミングです。";
 
     summaryDiv.innerHTML += `
       <div class="summary-card">
@@ -373,6 +375,31 @@ setTimeout(async ()=>{
       </div>
     `;
   });
+
+  // ===== AI呼び出し =====
+  summaryDiv.innerHTML += `<p>✨ AIが読み解いています...</p>`;
+  resultEl.appendChild(summaryDiv);
+
+  const aiMessage = await getFinalReading(results);
+
+  summaryDiv.innerHTML += `
+    <div class="final-ai">
+      <h3>✨ 最終リーディング</h3>
+      <p>${aiMessage}</p>
+    </div>
+  `;
+
+  // ===== ローカル最終メッセージ =====
+  const finalMessage = generateFinalMessage(results, questionInput.value);
+
+  summaryDiv.innerHTML += `
+    <div class="final-message">
+      <h2>✨ 最終メッセージ</h2>
+      <p>${finalMessage}</p>
+    </div>
+  `;
+
+}, 2500);
 
   // ⭐ AI呼び出し
   summaryDiv.innerHTML += `<p>✨ AIが読み解いています...</p>`;
