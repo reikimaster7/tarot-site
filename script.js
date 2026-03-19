@@ -186,8 +186,6 @@ function detectCategory(text){
 
 
 
-
-
 function generateSummary(results, question){
 
   const category = detectCategory(question);
@@ -197,121 +195,59 @@ function generateSummary(results, question){
   );
 
   let base = `
-過去：${texts[0]}
+【過去】
+${texts[0]}
 
-現在：${texts[1]}
+【現在】
+${texts[1]}
 
-未来：${texts[2]}
+【未来】
+${texts[2]}
 `;
 
+  // 🔮 総合リーディング（プロ風）
+  let advice = "";
+
   if(category === "love"){
-    base += "\n💖 恋愛においては、素直な気持ちとタイミングが鍵になります。";
+    advice = `
+💖 総合リーディング  
+今のあなたの恋愛は「流れの変わり目」にあります。  
+感情に流されすぎず、相手との距離感を大切にすることで、関係はより良い方向へ進んでいくでしょう。  
+
+焦らず“タイミング”を見極めることが、運命を引き寄せる鍵になります。
+`;
   }
   else if(category === "work"){
-    base += "\n💼 仕事面では、冷静な判断と行動力が成功を引き寄せます。";
+    advice = `
+💼 総合リーディング  
+仕事面では、状況が少しずつ動き始めています。  
+すぐに結果を求めるよりも、今は積み重ねる姿勢が重要です。  
+
+冷静な判断と小さな行動の継続が、やがて大きな成果へと繋がっていくでしょう。
+`;
   }
   else{
-    base += "\n🔮 今は流れを受け入れつつ、自分の意思で選択することが重要です。";
+    advice = `
+🔮 総合リーディング  
+現在は大きな転換期の中にいます。  
+すべてをコントロールしようとするよりも、流れに身を委ねることが重要です。  
+
+直感と現実のバランスを取ることで、最善の選択が見えてくるでしょう。
+`;
   }
 
-  return base;
+  return base + advice;
 }
 
 
 
 // ===== 占い =====
 let isDrawing = false;
-
 function drawThree(){
-  const results = [];
   if(isDrawing) return;
   isDrawing = true;
 
-  shuffleSound.currentTime = 0;
-  shuffleSound.play();
-
-  resultEl.innerHTML = "🔮 シャッフル中...";
-
-  setTimeout(()=>{
-    resultEl.innerHTML = "";
-
-    const draw = shuffle(cards).slice(0,3);
-    const positions = ["過去","現在","未来"];
-
-    
-    draw.forEach((card,index)=>{
-  setTimeout(()=>{
-
-    const isReversed = Math.random() < 0.5;
-
-    results.push({
-      card,
-      isReversed
-    });
-
-    const text = isReversed ? card.rev : card.up;
-
-    const cardEl = document.createElement("div");
-    cardEl.className = "card";
-
-    const inner = document.createElement("div");
-    inner.className = "card-inner";
-
-    const back = document.createElement("div");
-    back.className = "card-back";
-    back.textContent = "🔮";
-
-    const front = document.createElement("div");
-    front.className = "card-front";
-
-    const title = document.createElement("h3");
-    title.textContent = positions[index];
-
-    const img = document.createElement("img");
-    img.src = card.img;
-    if(isReversed) img.classList.add("reversed");
-
-    const name = document.createElement("p");
-    name.className = "name";
-    name.textContent = card.name;
-
-    const pos = document.createElement("p");
-    pos.className = `pos ${isReversed ? 'rev' : 'up'}`;
-    pos.textContent = isReversed ? "🔻逆位置" : "🔺正位置";
-
-    const textEl = document.createElement("p");
-    textEl.className = "text";
-    textEl.textContent = text;
-
-    front.append(title, img, name, pos, textEl);
-
-    inner.append(back, front);
-    cardEl.appendChild(inner);
-    resultEl.appendChild(cardEl);
-
-    // 🎴 アニメ
-    const flipDelay = (index === 2) ? 800 : 400;
-
-    setTimeout(()=>{
-      cardEl.classList.add("flip");
-      flipSound.currentTime = 0;
-      flipSound.play();
-    }, flipDelay);
-
-    // モーダル
-    cardEl.addEventListener("click", ()=>{
-      openModal(card, isReversed);
-    });
-
-  }, index * 800);
-});
-
-
-
-function drawThree(){
   const results = [];
-  if(isDrawing) return;
-  isDrawing = true;
 
   shuffleSound.currentTime = 0;
   shuffleSound.play();
@@ -391,7 +327,7 @@ function drawThree(){
       }, index * 800);
     });
 
-    // ⭐ 総合メッセージ（ここ重要）
+    // ⭐ 総合メッセージ
     setTimeout(()=>{
       const question = questionInput.value;
       const summaryText = generateSummary(results, question);
@@ -414,35 +350,6 @@ function drawThree(){
 
   }, 1000);
 }
-
-// 3枚出し終わったあと
-setTimeout(()=>{
-
-  const question = questionInput.value;
-  const summaryText = generateSummary(results, question);
-
-  const summaryDiv = document.createElement("div");
-  summaryDiv.className = "summary";
-
-  summaryDiv.innerHTML = `
-    <h2>🔮 総合メッセージ</h2>
-    <p>${summaryText}</p>
-  `;
-
-  resultEl.appendChild(summaryDiv);
-
-}, 2000); // ← カード表示後
-    
-   
-    // ロック解除
-    setTimeout(()=>{
-      isDrawing = false;
-    }, 2500);
-
-  },1000
-  ;
-
-
 
 // ===== モーダル =====
 function openModal(card, isReversed){
