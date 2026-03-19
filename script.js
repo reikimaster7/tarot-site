@@ -146,7 +146,8 @@ rev:"あと一歩で完成です。最後まで努力を続けることが成功
 }
 ];
 
-
+const shuffleSound = new Audio("sounds/shuffle.mp3");
+const flipSound = new Audio("sounds/flip.mp3");
 
 // ===== 正しいシャッフル =====
 function shuffle(array){
