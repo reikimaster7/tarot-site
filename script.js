@@ -309,76 +309,12 @@ function drawThree(){
 
 
 
-    const text = isReversed ? card.rev : card.up;
+ draw.forEach((card,index)=>{
+  setTimeout(()=>{
 
-    const cardEl = document.createElement("div");
-    cardEl.className = "card";
+    // ⭐ ここに全部まとめる（これ1個だけ）
 
-    const inner = document.createElement("div");
-    inner.className = "card-inner";
-
-    const back = document.createElement("div");
-    back.className = "card-back";
-    back.textContent = "🔮";
-
-    const front = document.createElement("div");
-    front.className = "card-front";
-
-    const title = document.createElement("h3");
-    title.textContent = positions[index];
-
-    const img = document.createElement("img");
-    img.src = card.img;
-    if(isReversed) img.classList.add("reversed");
-
-    const name = document.createElement("p");
-    name.className = "name";
-    name.textContent = card.name;
-
-    const pos = document.createElement("p");
-    pos.className = `pos ${isReversed ? 'rev' : 'up'}`;
-    pos.textContent = isReversed ? "🔻逆位置" : "🔺正位置";
-
-    const textEl = document.createElement("p");
-    textEl.className = "text";
-    textEl.textContent = text;
-
-    front.append(title, img, name, pos, textEl);
-
-    inner.append(back, front);
-    cardEl.appendChild(inner);
-    resultEl.appendChild(cardEl);
-
-    // 🎯 最後のカードだけ遅らせる
-    const flipDelay = (index === 2) ? 800 : 400;
-
-    setTimeout(()=>{
-      cardEl.classList.add("flip");
-
-      // 🔊 音
-      flipSound.currentTime = 0;
-      flipSound.play();
-
-      // 💫 通常光
-      cardEl.classList.add("glow");
-
-      // 🌟 最後だけ特別演出
-      if(index === 2){
-        cardEl.classList.add("final");
-      }
-
-      setTimeout(()=>{
-        cardEl.classList.remove("glow");
-      }, 600);
-
-    }, flipDelay);
-
-    // モーダル
-    cardEl.addEventListener("click", ()=>{
-      openModal(card, isReversed);
-    });
-
-  }, index * 800); // ← 少しゆっくり
+  }, index * 800);
 });
 
 // 3枚出し終わったあと
