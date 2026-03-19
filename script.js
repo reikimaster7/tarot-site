@@ -152,7 +152,6 @@ img:"images/major_22_world.png",
 up:"完成と達成を意味します。努力が実を結び、大きな成功を手にします。",
 rev:"あと一歩で完成です。最後まで努力を続けることが成功の鍵です。"
 }
-}
 ];
 
 const shuffleSound = new Audio("sounds/shuffle.mp3");
