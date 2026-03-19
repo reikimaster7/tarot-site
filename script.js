@@ -52,9 +52,10 @@ function drawThree(){
   //      : meanings[card.name];
 
 
+      
       const text = isReversed
-  ? card.rev
-  : card.up;
+       ? card.rev
+       : card.up;
 
       const div = document.createElement("div");
       div.className="card";
