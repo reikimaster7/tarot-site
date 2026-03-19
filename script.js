@@ -165,7 +165,8 @@ function drawThree(){
         <h3>${positions[index]}</h3>
         <img src="${card.img}" class="${isReversed ? 'reversed' : ''}">
         <p class="name">${card.name}</p>
-        <p class="pos">${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
+        <p class="pos ${isReversed ? 'rev' : 'up'}">
+        ${isReversed ? "🔻逆位置" : "🔺正位置"}</p>
         <p class="text">${text}</p>
       `;
 

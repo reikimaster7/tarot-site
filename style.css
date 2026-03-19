@@ -77,6 +77,19 @@ body {
 
 }
 
+/* 　正逆の色*/
+
+.up {
+  color: #6bffb3;
+  text-shadow: 0 0 5px #6bffb3;
+}
+
+.rev {
+  color: #ff6b6b;
+  text-shadow: 0 0 5px #ff6b6b;
+}
+
+
 /* モーダル */
 #modal {
   display: none;
