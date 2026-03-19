@@ -222,10 +222,21 @@ function drawThree(){
         resultEl.appendChild(cardEl);
 
         // 🎴 めくる＋音
+       setTimeout(()=>{
+        cardEl.classList.add("flip");
+
+       // 💫 光る
+        cardEl.classList.add("glow");
+
+       // 🔊 音
+        flipSound.currentTime = 0;
+        flipSound.play();
+
+        // 光を消す（再利用できるように）
         setTimeout(()=>{
-          cardEl.classList.add("flip");
-          flipSound.currentTime = 0;
-          flipSound.play();
+         cardEl.classList.remove("glow");
+         }, 600);
+
         }, 200);
 
         // モーダル
