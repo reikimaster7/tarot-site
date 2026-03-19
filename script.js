@@ -246,6 +246,24 @@ function drawThree(){
     results.push({
     card,
     isReversed
+
+// ===== 総合メッセージ =====
+　　　　const question = questionInput.value;
+　　　　const summaryText = generateSummary(results, question);
+
+　　　　const summaryDiv = document.createElement("div");
+　　　　summaryDiv.className = "summary";
+
+　　　　summaryDiv.innerHTML = `
+　　　  <h2>🔮 総合メッセージ</h2>
+　　　　  <p>${summaryText}</p>
+`;
+
+resultEl.appendChild(summaryDiv);
+
+
+
+    
    });
 
    const question = questionInput.value;
