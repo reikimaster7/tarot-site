@@ -353,8 +353,10 @@ setTimeout(()=>{
       isDrawing = false;
     }, 2500);
 
-  },1000);
-}
+  },1000
+  ;
+
+
 
 // ===== モーダル =====
 function openModal(card, isReversed){
