@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <title>🔮 タロット占い 🔮</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <h1>🔮 タロット占い 🔮</h1>
-<button onclick="drawThree()">占う</button>
+
+<!-- ボタン（JS側で処理する方が安全） -->
+<button id="drawBtn">占う</button>
 
 <div id="result"></div>
 
@@ -20,14 +21,12 @@
     <img id="modalImg">
     <h2 id="modalName"></h2>
     <p id="modalText"></p>
-    <button onclick="closeModal()">閉じる</button>
+    <button id="closeBtn">閉じる</button>
   </div>
 </div>
 
-
-
+<!-- JSは一番最後 -->
 <script src="script.js"></script>
 
 </body>
-
 </html>
